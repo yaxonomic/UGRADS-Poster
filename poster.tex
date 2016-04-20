@@ -36,8 +36,8 @@
 %\beamertemplategridbackground[1cm]
 
 \title{\huge YAX: Taxonomic assignment using metagenomic shotgun sequences}
-\author{Evan T. Bolyen$^{a}$, Mike R. DeBerg$^{a}$, Andrew J. Hodel$^{a}$, Hayden T. Westbrook$^{a}$, and Viacheslav Y. Fofanov$^{a}$}
-\institute{$^{a}$School of Informatics, Computing, and Cyber Systems - Northern Arizona University}
+\author{Evan T. Bolyen$^{1}$, Mike R. DeBerg$^{1}$, Andrew J. Hodel$^{1}$, Hayden T. Westbrook$^{1}$, and Viacheslav Y. Fofanov$^{1}$}
+\institute{$^{1}$School of Informatics, Computing, and Cyber Systems - Northern Arizona University}
 
 % abbreviations
 \usepackage{xspace}
@@ -63,12 +63,9 @@
         \begin{alertblock}{\includegraphics[width=.8\linewidth]{assets/yak}\newline\newline}
             YAX is a both a tool for taxonomic classification and a computational pipeline manager.\newline
         \end{alertblock}
-        \begin{block}{Purpose}
-            To seek out new life and new civilizations and to boldly go where no man has gone before. To provide a dynamic taxonomic assignment pipeline.
-            % YAX is ultimately a pipeline used for taxonomic assignment of a set of sample sequences. However it is designed to
-            % be dynamic in a way that allows for not only parameter exploration with as little recomputation as possible but also
-            % for modification of the pipeline itself with as little effor as possible. This makes YAX capable of rapid recalculations
-            % and reconfigurations.
+        \begin{block}{Problem Statement}
+            Traditional taxonomic assignment techniques are time consuming (sometimes taking weeks)
+            making transient failures likely, additionally there are many possible parameters to adjust.
         \end{block}
         \begin{block}{Requirements}
             \textbf{Modular}
@@ -118,8 +115,12 @@
             \includegraphics[width=0.54\linewidth, right]{assets/Subset}
         \end{block}
         \begin{block}{Making Sense of the Results}
-        \includegraphics[width=1\linewidth]{assets/coverage_plot_good}\newline\newline
-        \includegraphics[width=1\linewidth]{assets/coverage_plot_bad}\newline\newline
+            In order to leverage the expertise of trained biologists, we provide plots which represent the coverage
+            of a target genome by reads from the sample set.\newline\newline
+        \textbf{Good Coverage:}\\
+        \includegraphics[width=.95\linewidth, center]{assets/coverage_plot_good}\\
+        \textbf{Bad Coverage:}\\
+        \includegraphics[width=.95\linewidth, center]{assets/coverage_plot_bad}
         \end{block}
 
     \end{column}
@@ -128,21 +129,42 @@
 
     \begin{column}{.3\linewidth}
         \begin{block}{Architecture}
-            A computational pipeline in YAX is\\
-            \includegraphics[width=1\linewidth]{assets/arch}\newline\newline
+            A YAX architectural configuration file is used to initialize the topology of a pipeline. It builds the
+            ExeGraph and a database which will store Artifacts (an intermediate result).
+            The ExeGraph represents the behavior of the pipeline, interacting with functional Modules via ExeNodes.
+            This prevents coupling by disassociating Modules from each other and the pipeline as a whole. Meanwhile,
+            the database is managed by IndianaJones (named after the dog) who is responsible for managing the existing
+            Artifacts so that they may be reused in subsequent runs of this pipeline. \newline\newline
+            \includegraphics[width=1\linewidth]{assets/arch}
 
         \end{block}
-        \begin{block}{Outcomes}
-            YAX is designed to be highly modular and capable of adapting along side technological developments. As part of its development
-            YAX was built to not only provide one solution but to investigate a number of possible solutions. The near future of YAX will
-            see new modules developed to make fool use of its flexibility.
-
+        \begin{block}{Testing}
+            \begin{itemize}
+                \item[$\bullet$]Phase 1 - Unit Testing: verify small units of functionality
+                \item[$\bullet$]Phase 2 - Mock Pipeline: verify the state-system
+                \item[$\bullet$]Phase 3 - Tiny Test Data Set: full integration testing
+                \item[$\bullet$]Phase 4 - ``Real World'' Data: production testing
+            \end{itemize}
         \end{block}
         \begin{block}{Future Work}
-            YAX is designed to be highly modular and capable of adapting along side technological developments. As part of its development
-            YAX was built to not only provide one solution but to investigate a number of possible solutions. The near future of YAX will
-            see new modules developed to make fool use of its flexibility.
+            YAX is designed to be highly modular, capable of adapting with technological development. As part of its development
+            YAX was built to not only provide one solution, but to allow exploration between different possible solutions.
+            The near future of YAX will see the development of new modules to make full use of this flexibility.
 
+        \end{block}
+        \begin{block}{Facilitating Technologies}
+        \begin{itemize}
+            \item[$\bullet$]Python 3.5 - An excellent language, much better than Python 2.7
+            \item[$\bullet$]Bowtie2 - Fast and accurate alignment
+            \item[$\bullet$]Bowtie2-mg - Bowtie2 wrapper for metagenomic binning
+            \item[$\bullet$]ReadPrep - Raw sequence FASTQ file processing
+            \item[$\bullet$]TaxIDTool - Manages taxonomic trees
+            \item[$\bullet$]Matplotlib - Plotting library
+            \item[$\bullet$]PDFKit - Creating rendered output
+            \item[$\bullet$]Miniconda - Packaging and environment management
+            \item[$\bullet$]TravisCI - Continuous integration service
+            \item[$\bullet$]git and GitHub - Version control software and hosting
+        \end{itemize}
         \end{block}
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
