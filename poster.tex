@@ -116,8 +116,10 @@
                 \begin{column}{.42\linewidth}
                     \begin{minipage}{\linewidth}
                         \begin{itemize}
-                            \item[$\bullet$]\textbf{1.6 Terabases}
-                            \item[$\bullet$]\textbf{200 Gigabases}
+                            \huge
+                            \item[$\bullet$]\huge\textbf{1.6 Terabases}
+                            \item[$\bullet$]\huge\textbf{200 Gigabases}
+                            \item[$\bullet$]\huge\textbf{1.6 Sextillion Comparisons}
                         \end{itemize}
                     \end{minipage}
                 \end{column}
@@ -143,31 +145,23 @@
 
     \begin{column}{.3\linewidth}
         \begin{block}{Architecture}
-            A YAX architectural configuration file is used to initialize the topology of a pipeline. It builds the
-            ExeGraph and a database which will store Artifacts (an intermediate result).
-            The ExeGraph represents the behavior of the pipeline, interacting with functional Modules via ExeNodes.
-            This prevents coupling by disassociating Modules from each other and the pipeline as a whole. Meanwhile,
-            the database is managed by IndianaJones (named after the dog) who is responsible for managing the existing
-            Artifacts so that they may be reused in subsequent runs of this pipeline. \newline\newline
+            A YAX architectural configuration file is used to initialize the topology of a pipeline, build the
+            ExeGraph, and a database which will store Artifacts (an intermediate result).
+            The ExeGraph represents the behavior of the pipeline, interacting with functional Modules via ExeNodes preventint
+            coupling by disassociating Modules from each other and the pipeline. The database is managed by IndianaJones
+            (named after the dog) who is responsible for managing the existing
+            Artifacts so that they may be reused in subsequent runs of this pipeline. \newline
             \includegraphics[width=1\linewidth]{assets/arch}
+        \end{block}
 
-        \end{block}
-        \begin{block}{Testing}
-            \begin{itemize}
-                \item[$\bullet$]Phase 1 - Unit Testing: verify small units of functionality
-                \item[$\bullet$]Phase 2 - Mock Pipeline: verify the state-system
-                \item[$\bullet$]Phase 3 - Tiny Test Data Set: full integration testing
-                \item[$\bullet$]Phase 4 - ``Real World'' Data: production testing
-            \end{itemize}
-        \end{block}
         \begin{block}{Future Work}
             YAX is designed to be highly modular, capable of adapting with technological development. As part of its development
             YAX was built to not only provide one solution, but to allow exploration between different possible solutions.
-            The near future of YAX will see the development of new modules to make full use of this flexibility.
 
         \end{block}
         \begin{block}{Facilitating Technologies}
         \begin{itemize}
+            \small
             \item[$\bullet$]Python 3.5 - An excellent language, much better than Python 2.7
             \item[$\bullet$]Bowtie2 - Fast and accurate alignment
             \item[$\bullet$]Bowtie2-mg - Bowtie2 wrapper for metagenomic binning
