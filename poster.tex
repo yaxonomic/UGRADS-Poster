@@ -37,7 +37,7 @@
 
 \title{\huge YAX: Taxonomic assignment using metagenomic shotgun sequences}
 \author{Evan T. Bolyen$^{a}$, Mike R. DeBerg$^{a}$, Andrew J. Hodel$^{a}$, Hayden T. Westbrook$^{a}$, and Viacheslav Y. Fofanov$^{a}$}
-\institute{$^{a}$School of Computing, Informatics, and Cybersystems - Northern Arizona Univ.}
+\institute{$^{a}$School of Informatics, Computing, and Cyber Systems - Northern Arizona University}
 
 % abbreviations
 \usepackage{xspace}
@@ -60,47 +60,35 @@
 \begin{frame}{}
   \begin{columns}[t]
     \begin{column}{.3\linewidth}
-        \begin{alertblock}{\includegraphics[width=.9\linewidth]{assets/yak}\newline\newline}
-            We introduce a novel pipeline called YAX which is used to assign taxonomy to provided samples. Whether it is a sample of dirt, subway grime, or your own gut, YAX will help to identify members of the community using high throughput metagenomic shotgun sequences.
-          \newline
+        \begin{alertblock}{\includegraphics[width=.8\linewidth]{assets/yak}\newline\newline}
+            YAX is a both a tool for taxonomic classification and a computational pipeline manager.\newline
         \end{alertblock}
-        \begin{block}{Intended Audience}
-            \textbf{Features for Biologists:}
-            \begin{itemize}
-                \item[$\bullet$]Pipeline configuration based on textual input file
-                \item[$\bullet$]Pipeline run recieves user input in text format
-                \item[$\bullet$]Easy to understand error messages
-                \item[$\bullet$]Parameter validation accomplished upon submission
-                \item[$\bullet$]Dependency verification checks locations before run
-            \end{itemize}
-            \vspace{1cm}
-            \textbf{Features for Bioinformatics Developers:}
-            \begin{itemize}
-                \item[$\bullet$]Modular design allows for pipeline reconfiguration
-                \item[$\bullet$]Basic taxonomic tools included
-            \end{itemize}
+        \begin{block}{Purpose}
+            To seek out new life and new civilizations and to boldly go where no man has gone before. To provide a dynamic taxonomic assignment pipeline.
+            % YAX is ultimately a pipeline used for taxonomic assignment of a set of sample sequences. However it is designed to
+            % be dynamic in a way that allows for not only parameter exploration with as little recomputation as possible but also
+            % for modification of the pipeline itself with as little effor as possible. This makes YAX capable of rapid recalculations
+            % and reconfigurations.
         \end{block}
-
         \begin{block}{Requirements}
             \textbf{Modular}
             \begin{itemize}
                 \item[$\bullet$]Incorporate developing technologies
                 \item[$\bullet$]Evaluate different processes
             \end{itemize}
-            \vspace{1cm}
+            \vspace{0.5cm}
             \textbf{Fail Early}
             \begin{itemize}
-                \item[$\bullet$]Validate parameters before running
-                \item[$\bullet$]Verify dependencies before running
+                \item[$\bullet$]Validate parameters and dependencies before running
                 \item[$\bullet$]Prevent failure in the middle of a run for spurious reasons
             \end{itemize}
-            \vspace{1cm}
+            \vspace{0.5cm}
             \textbf{Coverage Representation}
             \begin{itemize}
                 \item[$\bullet$]Provide biologists with relevant details
                 \item[$\bullet$]Every identified taxon is qualified with coverage data
             \end{itemize}
-            \vspace{1cm}
+            \vspace{0.5cm}
             \textbf{State System}
             \begin{itemize}
                 \item[$\bullet$]Manage component requirements
@@ -110,7 +98,10 @@
             \end{itemize}
         \end{block}
 
-
+        \begin{block}{Managing State}
+            The figure below represents multiple runs of a pipeline. By using a state-system, YAX is able to identify where parameters are shared and reuse the results. \\
+            \includegraphics[width=1\linewidth]{assets/Artifacts}
+        \end{block}
 
       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -118,26 +109,18 @@
     \end{column}
     \begin{column}{.3\linewidth}
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        \begin{block}{Purpose}
-            YAX is ultimately a pipeline used for taxonomic assignment of a set of sample sequences. However it is designed to
-            be dynamic in a way that allows for not only parameter exploration with as little recomputation as possible but also
-            for modification of the pipeline itself with as little effor as possible. This makes YAX capable of rapid recalculations
-            and reconfigurations.
-        \end{block}
 
-        \begin{block}{Solution Overview}
-            The first step of YAX's iterative alignment approach compares the sample set to the entire NCBI database. This is done
-            with high thresholds so that it can be accomplished as quickly as possible. If a read from the sample set aligns to more than
-            one taxonomic group we can also filter this information out because of its ambiguity. The focus of this step is to eliminate
-            obviously wrong answers.
-            \includegraphics[width=1\linewidth]{assets/Whole} \\
-            After we have obtained a subset of the entire database from the first step we can loosen the alignment thresholds to allow more
-            reads from the sample set to align to reference genomes. This allows us to "use the whole yak" and squeeze as much information
-            out of the sample set as possible. Of course in this step we still disregard those reads that align to taxonomic groups outside our
-            thresholds as ambiguous.
-            \includegraphics[width=0.679\linewidth, right]{assets/Subset}
-        \end{block}
 
+        \begin{block}{Assigning Taxonomy}
+            \textbf{Use strict matching against the entire reference set to remove obviously wrong results:}\\
+            \includegraphics[width=.8\linewidth, right]{assets/Whole} \\
+            \textbf{Using the results from the last step, perform a detailed\\ refinement with looser parameters:}\\
+            \includegraphics[width=0.54\linewidth, right]{assets/Subset}
+        \end{block}
+        \begin{block}{Making Sense of the Results}
+        \includegraphics[width=1\linewidth]{assets/coverage_plot_good}\newline\newline
+        \includegraphics[width=1\linewidth]{assets/coverage_plot_bad}\newline\newline
+        \end{block}
 
     \end{column}
 
@@ -145,38 +128,21 @@
 
     \begin{column}{.3\linewidth}
         \begin{block}{Architecture}
+            A computational pipeline in YAX is\\
             \includegraphics[width=1\linewidth]{assets/arch}\newline\newline
 
         \end{block}
-        \begin{block}{Key Features}
-            The Best Taxonomic Aligner You Will See Today!
-            Configuration File creation at pipeline Initialization
-            \begin{itemize}
-              \item[$\bullet$]Easy user interaction
-              \item[$\bullet$]Parameter validation
-              \item[$\bullet$]Dependency verification
-              \item[$\bullet$]Persistent use records
-            \end{itemize}
-            Indiana Jones the intrepid artifact hunter (named after the dog)
-            \begin{itemize}
-              \item[$\bullet$]YAX is aware of previously produced output
-              \item[$\bullet$]Artifacts are reusable to reduce recomputation
-              \item[$\bullet$]Parameter exploration
-              \item[$\bullet$]Rapid error recovery
-            \end{itemize}
+        \begin{block}{Outcomes}
+            YAX is designed to be highly modular and capable of adapting along side technological developments. As part of its development
+            YAX was built to not only provide one solution but to investigate a number of possible solutions. The near future of YAX will
+            see new modules developed to make fool use of its flexibility.
+
         \end{block}
         \begin{block}{Future Work}
             YAX is designed to be highly modular and capable of adapting along side technological developments. As part of its development
             YAX was built to not only provide one solution but to investigate a number of possible solutions. The near future of YAX will
             see new modules developed to make fool use of its flexibility.
 
-        \end{block}
-        \begin{block}{References}
-            \begin{itemize}
-              {\small
-              \item[1]Stack Overflow.
-              }
-          \end{itemize}
         \end{block}
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
